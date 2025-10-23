@@ -11,6 +11,7 @@ public class NavioPassageiro extends Navio {
     private int totalPassageirosEmbarcados;
 
     public NavioPassageiro() {
+        super();
     }
 
     public NavioPassageiro(int numeroPassageiros, String nome, long peso, int comprimento) {
@@ -19,6 +20,9 @@ public class NavioPassageiro extends Navio {
     }
 
     public NavioPassageiro(String nome, long peso, int comprimento, int numeroPassageiros) {
+        this.setNome(nome);
+        this.setPeso(peso);
+        this.setComprimento(comprimento);
         this.numeroPassageiros = numeroPassageiros;
     }
 
@@ -30,14 +34,14 @@ public class NavioPassageiro extends Navio {
         int calcularEmbarcados = this.totalPassageirosEmbarcados + passageirosEmbarcados;
 
         if (calcularEmbarcados > this.numeroPassageiros) {
-            int calcularLimite = calcularEmbarcados - this.numeroPassageiros;
-            System.out.printf("ATENCAO!\nO navio não comporta mais o(s) %d passageiro(s).\n\t%d passageiro(s) acima do limite.", passageirosEmbarcados, calcularLimite);
+            int calcularLimiteUltrapassado = calcularEmbarcados - this.numeroPassageiros;
+            System.out.printf("ATENCAO!\nO navio nao consegue comportar o(s) %d passageiro(s).\n\t%d passageiro(s) acima do limite.", passageirosEmbarcados, calcularLimiteUltrapassado);
         } else {
-            int calcularLimite = this.numeroPassageiros - calcularEmbarcados;
+            int calcularLimiteRestante = this.numeroPassageiros - calcularEmbarcados;
             if (calcularEmbarcados == this.numeroPassageiros) {
-                System.out.printf("Liberado o embarque do(s) %d passageiro(s). Limite maximo atingido.", passageirosEmbarcados);
+                System.out.printf("Liberado o embarque do(s) %d passageiro(s).\nATENCAO! Limite maximo atingido.", passageirosEmbarcados);
             } else {
-                System.out.printf("Liberado o embarque do(s) %d passageiro(s). Limite restante: %d passageiro(s).", passageirosEmbarcados, calcularLimite);
+                System.out.printf("Liberado o embarque do(s) %d passageiro(s). Limite restante: %d passageiro(s).", passageirosEmbarcados, calcularLimiteRestante);
             }
             this.totalPassageirosEmbarcados = calcularEmbarcados;
         }
@@ -54,8 +58,8 @@ public class NavioPassageiro extends Navio {
             if (calcularDesembarque == 0) {
                 System.out.println("\nO navio foi esvaziado.");
             } else {
-                int calcularLimite = this.numeroPassageiros - calcularDesembarque;
-                System.out.printf("\nNovo limite para embarque: %d passageiro(s).", calcularLimite);
+                int calcularLimiteRestante = this.numeroPassageiros - calcularDesembarque;
+                System.out.printf("\nNovo limite para embarque: %d passageiro(s).", calcularLimiteRestante);
             }
             this.totalPassageirosEmbarcados = calcularDesembarque;
         }
