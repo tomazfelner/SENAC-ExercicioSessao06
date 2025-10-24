@@ -2,12 +2,13 @@ package br.senac.classes.concretas;
 
 import br.senac.classes.abstratas.Navio;
 import br.senac.classes.tipoPesca.TipoPesca;
+import br.senac.interfaces.Pesqueiro;
 import java.util.Scanner;
 
 /**
  * @author tomaz
  */
-public class NavioPesqueiro extends Navio {
+public class NavioPesqueiro extends Navio implements Pesqueiro {
 
     private int capacidade;
     private TipoPesca tipoPesca;
@@ -31,11 +32,13 @@ public class NavioPesqueiro extends Navio {
         this.tipoPesca = tipoPesca;
     }
 
+    @Override
     public void apresentarQuantidadeDePescado() {
         System.out.println("\n<---- QNT. PESCADOS ---->");
         System.out.printf("\tO navio possui %d pescado(s) embarcados.\n", this.totalPescadoEmbarcado);
     }
 
+    @Override
     public void pescar(int quantidadePescado) {
         if (totalPescadoEmbarcado == capacidade) {
             System.out.println("ATENCAO! Nao tem como embarcar mais nenhum pescado.");
@@ -60,6 +63,7 @@ public class NavioPesqueiro extends Navio {
         this.totalPescadoEmbarcado = calcularPescados;
     }
 
+    @Override
     public void desembarcarTodoPescado() {
         System.out.println("\n<----- ESVAZIAR NAVIO ----->");
         if (this.totalPescadoEmbarcado > 0) {
@@ -89,5 +93,4 @@ public class NavioPesqueiro extends Navio {
     public void atracar() {
         System.out.println("\nO NAVIO ESTA ATRACANDO.");
     }
-
 }

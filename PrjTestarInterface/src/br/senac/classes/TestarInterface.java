@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * @author tomaz
  */
-public class TestarClasseAbstrata {
+public class TestarInterface {
 
     public static void main(String[] args) {
         int menuSelector;

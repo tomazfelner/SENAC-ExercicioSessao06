@@ -1,12 +1,13 @@
 package br.senac.classes.concretas;
 
 import br.senac.classes.abstratas.Navio;
+import br.senac.interfaces.Passageiro;
 import java.util.Scanner;
 
 /**
  * @author tomaz
  */
-public class NavioPassageiro extends Navio {
+public class NavioPassageiro extends Navio implements Passageiro {
 
     private int numeroPassageiros;
     private int totalPassageirosEmbarcados;
@@ -27,49 +28,52 @@ public class NavioPassageiro extends Navio {
         this.numeroPassageiros = numeroPassageiros;
     }
 
+    @Override
     public void apresentarQuantidadePassageirosEmbarcados() {
         System.out.println("\n<---- QNT. PASSAGEIROS ---->");
         System.out.printf("\tO navio possui %d passageiro(s) embarcados", this.totalPassageirosEmbarcados);
     }
 
-    public void embarcarPassageiros(int passageirosEmbarcados) {
+    @Override
+    public void embarcarPassageiros(int quantidadePassageiros) {
         if (totalPassageirosEmbarcados == numeroPassageiros) {
             System.out.println("ATENCAO! Nao tem como embarcar mais nenhum passageiro.");
             return;
         }
-        int calcularEmbarcados = this.totalPassageirosEmbarcados + passageirosEmbarcados;
+        int calcularEmbarcados = this.totalPassageirosEmbarcados + quantidadePassageiros;
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n<-------- EMBARQUE -------->");
         while (calcularEmbarcados > this.numeroPassageiros) {
 
             int calcularLimiteUltrapassado = calcularEmbarcados - this.numeroPassageiros;
-            System.out.printf("\tATENCAO! O navio nao consegue comportar o(s) %d passageiro(s).\n\t%d passageiro(s) acima do limite.", passageirosEmbarcados, calcularLimiteUltrapassado);
+            System.out.printf("\tATENCAO! O navio nao consegue comportar o(s) %d passageiro(s).\n\t%d passageiro(s) acima do limite.", quantidadePassageiros, calcularLimiteUltrapassado);
             System.out.println("\n\tRespeite o limite! Quantos passageiros irao embarcar?");
-            passageirosEmbarcados = scanner.nextInt();
-            calcularEmbarcados = this.totalPassageirosEmbarcados + passageirosEmbarcados;
+            quantidadePassageiros = scanner.nextInt();
+            calcularEmbarcados = this.totalPassageirosEmbarcados + quantidadePassageiros;
             calcularLimiteUltrapassado = calcularEmbarcados - this.numeroPassageiros;
         }
         int calcularLimiteRestante = this.numeroPassageiros - calcularEmbarcados;
         if (calcularEmbarcados == this.numeroPassageiros) {
-            System.out.printf("\tLiberado o embarque do(s) %d passageiro(s).\n\tATENCAO! Limite maximo atingido.", passageirosEmbarcados);
+            System.out.printf("\tLiberado o embarque do(s) %d passageiro(s).\n\tATENCAO! Limite maximo atingido.", quantidadePassageiros);
         } else {
-            System.out.printf("\tLiberado o embarque do(s) %d passageiro(s).\n\tLimite restante: %d passageiro(s).", passageirosEmbarcados, calcularLimiteRestante);
+            System.out.printf("\tLiberado o embarque do(s) %d passageiro(s).\n\tLimite restante: %d passageiro(s).", quantidadePassageiros, calcularLimiteRestante);
         }
         this.totalPassageirosEmbarcados = calcularEmbarcados;
     }
 
-    public void desembarcarPassageiros(int passageirosDesembarcados) {
-        int calcularDesembarque = this.totalPassageirosEmbarcados - passageirosDesembarcados;
+    @Override
+    public void desembarcarPassageiros(int quantidadePassageiros) {
+        int calcularDesembarque = this.totalPassageirosEmbarcados - quantidadePassageiros;
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n<------ DESEMBARQUE ------>");
         while (calcularDesembarque < 0) {
             System.out.printf("\tATENCAO! Numero de passageiros desembarcando maior que o numero de passageiros a bordo.");
-            System.out.printf("\n\tHa %d passageiro(s) e desembarcando %d passageiro(s).", this.totalPassageirosEmbarcados, passageirosDesembarcados);
+            System.out.printf("\n\tHa %d passageiro(s) e desembarcando %d passageiro(s).", this.totalPassageirosEmbarcados, quantidadePassageiros);
             System.out.println("\n\tRespeite o limite! Quantos passageiros irao desembarcar?");
-            passageirosDesembarcados = scanner.nextInt();
-            calcularDesembarque = this.totalPassageirosEmbarcados - passageirosDesembarcados;
+            quantidadePassageiros = scanner.nextInt();
+            calcularDesembarque = this.totalPassageirosEmbarcados - quantidadePassageiros;
         }
-        System.out.printf("\tDesembarque de %d passageiro(s) efetuado com sucesso!", passageirosDesembarcados);
+        System.out.printf("\tDesembarque de %d passageiro(s) efetuado com sucesso!", quantidadePassageiros);
         if (calcularDesembarque == 0) {
             System.out.println("\n\tO navio foi esvaziado.");
         } else {
@@ -79,6 +83,7 @@ public class NavioPassageiro extends Navio {
         this.totalPassageirosEmbarcados = calcularDesembarque;
     }
 
+    @Override
     public void desembarcarTodosOsPassageiros() {
         System.out.println("\n<----- ESVAZIAR NAVIO ----->");
         if (this.totalPassageirosEmbarcados > 0) {
@@ -108,5 +113,4 @@ public class NavioPassageiro extends Navio {
     public void atracar() {
         System.out.println("O NAVIO ESTA ATRACANDO.");
     }
-
 }
